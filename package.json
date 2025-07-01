@@ -1,0 +1,66 @@
+{
+    "name": "my-nodejs-app",
+    "version": "1.0.0",
+    "description": "Backend API built with Node.js, Express, and TypeScript, featuring route validation, logging, and Swagger documentation.",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc",
+        "format": "prettier --write .",
+        "start": "tsc && node dist/index.js",
+        "watch": "nodemon src/index.ts",
+        "prepare": "husky install"
+    },
+    "keywords": [],
+    "author": "vaghela digvijaysinh",
+    "license": "ISC",
+    "type": "commonjs",
+    "dependencies": {
+        "bcrypt": "^6.0.0",
+        "cors": "^2.8.5",
+        "dotenv": "^16.5.0",
+        "ejs": "^3.1.10",
+        "exceljs": "^4.3.0",
+        "express": "^5.1.0",
+        "helmet": "^8.1.0",
+        "joi": "^17.13.3",
+        "json-2-csv": "^5.5.9",
+        "jsonwebtoken": "^9.0.2",
+        "lodash": "^4.17.21",
+        "mongoose": "^8.15.1",
+        "morgan": "^1.10.0",
+        "playwright": "^1.53.2",
+        "swagger-ui-express": "^5.0.1",
+        "winston": "^3.17.0",
+        "yamljs": "^0.3.0"
+    },
+    "devDependencies": {
+        "@types/bcrypt": "^5.0.2",
+        "@types/cors": "^2.8.18",
+        "@types/ejs": "^3.1.5",
+        "@types/exceljs": "^0.5.3",
+        "@types/express": "^5.0.2",
+        "@types/helmet": "^0.0.48",
+        "@types/joi": "^17.2.2",
+        "@types/jsonwebtoken": "^9.0.10",
+        "@types/lodash": "^4.17.19",
+        "@types/mongoose": "^5.11.96",
+        "@types/morgan": "^1.9.9",
+        "@types/node": "^22.15.23",
+        "@types/swagger-ui-express": "^4.1.8",
+        "@types/winston": "^2.4.4",
+        "@types/yamljs": "^0.2.34",
+        "husky": "^8.0.0",
+        "lint-staged": "^16.1.0",
+        "prettier": "^3.5.3",
+        "ts-node": "^10.9.2",
+        "ts-node-dev": "^2.0.0",
+        "tsconfig-paths": "^4.2.0",
+        "typescript": "^5.8.3"
+    },
+    "lint-staged": {
+        "*.{ts,tsx,js,json,css,md}": [
+            "prettier --write",
+            "git add"
+        ]
+    }
+}

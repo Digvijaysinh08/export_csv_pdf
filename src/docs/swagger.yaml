@@ -1,0 +1,228 @@
+openapi: 3.0.0
+info:
+  title: My NodeJs App API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api
+
+tags:
+  - name: Authentication
+    description: Operations related to user authentication
+  - name: User
+    description: User related operations
+
+paths:
+  /auth/log-in:
+    post:
+      summary: user log in
+      operationId: userLogIn
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: john@yopmail.com
+                password:
+                  type: string
+                  example: Asdf@1234
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseWithUser'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+
+  /user:
+    post:
+      summary: Create user
+      operationId: createUser
+      tags:
+        - User
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    firstName:
+                      type: string
+                      example: John
+                    lastName:
+                      type: string
+                      example: Doe
+                    countryCode:
+                      type: string
+                      example: "+91"
+                    phone:
+                      type: string
+                      example: "1234567890"
+                    email:
+                      type: string
+                      format: email
+                      example: john@yopmail.com
+                    password:
+                      type: string
+                      format: password
+                      example: Asdf@1234
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseWithUser'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+
+    get:
+      summary: Get all users
+      operationId: getAllUsers
+      tags:
+        - User
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - $ref: '#/components/parameters/headerLanguage'
+        - $ref: '#/components/parameters/headerDeviceType'
+        - $ref: '#/components/parameters/headerPlatform'
+        - $ref: '#/components/parameters/headerVersion'
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Users fetched successfully
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+
+components:
+  securitySchemes:
+    ApiKeyAuth: 
+      type: apiKey
+      in: header
+      name: Authorization
+
+  parameters:
+    headerLanguage:
+      name: Accept-Language
+      in: header
+      description: Language preference
+      required: false
+      schema:
+        type: string
+        example: en
+
+    headerDeviceType:
+      name: X-Device-Type
+      in: header
+      description: Device type (mobile/desktop)
+      required: false
+      schema:
+        type: string
+        example: desktop
+
+    headerPlatform:
+      name: X-Platform
+      in: header
+      description: Platform (iOS/Android/Web)
+      required: false
+      schema:
+        type: string
+        example: web
+
+    headerVersion:
+      name: X-Version
+      in: header
+      description: App version
+      required: false
+      schema:
+        type: string
+        example: "1.0.0"
+
+  responses:
+    BadRequestError:
+      description: Request fails validation or doesn't meet all conditions for request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: false
+              message:
+                type: string
+                example: Validation failed
+              data:
+                type: object
+                nullable: true
+    NotFoundError:
+      description: Requested resource was not found
+    UnauthorizedError:
+      description: Access token is missing or invalid
+
+  schemas:
+    ApiResponse:
+      type: object
+      required:
+        - success
+        - message
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Test successful
+        data:
+          type: object
+          description: Response payload, can be any object
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          example: john@yopmail.com
+
+    ApiResponseWithUser:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponse'
+      properties:
+        data:
+          $ref: '#/components/schemas/User'
+

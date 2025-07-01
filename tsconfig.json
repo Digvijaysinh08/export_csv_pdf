@@ -1,0 +1,47 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "rootDir": "./",
+        "outDir": "./build",
+        "module": "CommonJS",
+        "target": "ESNext",
+        "lib": ["ESNext"],
+        "moduleResolution": "Node",
+        "types": ["node", "express"],
+        "strict": true,
+        "pretty": true,
+        "allowJs": true,
+        "sourceMap": true,
+        "composite": true,
+        "declaration": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "noUncheckedIndexedAccess": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@root/*": ["./*"],
+            "@config": ["./src/config"],
+            "@config/*": ["./src/config/*"],
+            "@models": ["./src/models"],
+            "@models/*": ["./src/models/*"],
+            "@schemas": ["./src/schemas"],
+            "@schemas/*": ["./src/schemas/*"],
+            "@utils": ["./src/utils"],
+            "@utils/*": ["./src/utils/*"],
+            "@middlewares": ["./src/middlewares"],
+            "@middlewares/*": ["./src/middlewares/*"],
+            "@types": ["./src/types/index"],
+            "@types/*": ["./src/types/*"]
+        },
+        "typeRoots": ["custom-definitions", "./node_modules/@types", "./types"]
+    },
+    "ts-node": {
+        "require": ["tsconfig-paths/register"]
+    },
+    "include": ["custom-definitions/*", "./src/**/*", "src/**/*.ts"],
+    "exclude": ["node_modules", "./build", "/*.test.ts", "/*.spec.ts"]
+}
