@@ -6,6 +6,5 @@ const router = Router();
 
 router.post('/log-in', AuthService.login as unknown as RequestHandler);
 
-router.get('/', UserService.getAll as unknown as RequestHandler);
 
 export { router };
